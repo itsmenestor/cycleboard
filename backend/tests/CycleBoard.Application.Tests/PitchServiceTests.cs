@@ -70,7 +70,7 @@ public class PitchServiceTests
 
         await _sut.DeletePitchAsync(pitch.Id, _ownerId);
 
-        await _pitchRepo.Received(1).DeleteAsync(pitch.Id, Arg.Any<CancellationToken>());
+        await _pitchRepo.Received(1).DeleteAsync(pitch.Id, _ownerId, Arg.Any<CancellationToken>());
     }
 
     [Fact]

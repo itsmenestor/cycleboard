@@ -114,12 +114,13 @@ public sealed class PitchRepository : IPitchRepository
         await cmd.ExecuteNonQueryAsync(ct);
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken ct = default)
+    public async Task DeleteAsync(Guid id, Guid userId, CancellationToken ct = default)
     {
-        const string sql = "DELETE FROM pitches WHERE id = @id;";
+        const string sql = "DELETE FROM pitches WHERE id = @id AND user_id = @user_id;";
         await using var conn = (NpgsqlConnection)await _connectionFactory.CreateOpenConnectionAsync(ct);
         await using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("id", id);
+        cmd.Parameters.AddWithValue("user_id", userId);
         await cmd.ExecuteNonQueryAsync(ct);
     }
 

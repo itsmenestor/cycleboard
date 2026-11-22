@@ -10,5 +10,5 @@ public interface IPitchRepository
     Task<Pitch?> GetByIdAsync(Guid id, CancellationToken ct = default);
     Task AddAsync(Pitch pitch, CancellationToken ct = default);
     Task UpdateAsync(Pitch pitch, CancellationToken ct = default);
-    Task DeleteAsync(Guid id, CancellationToken ct = default);
+    Task DeleteAsync(Guid id, Guid userId, CancellationToken ct = default);
 }

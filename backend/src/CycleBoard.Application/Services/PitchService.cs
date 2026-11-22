@@ -65,7 +65,7 @@ public sealed class PitchService : IPitchService
         if (pitch.UserId != requestingUserId)
             throw new ForbiddenAccessException();
 
-        await _pitchRepository.DeleteAsync(pitchId, ct);
+        await _pitchRepository.DeleteAsync(pitchId, requestingUserId, ct);
     }
 
     private static PitchDto MapToDto(Domain.Entities.Pitch p) => new(

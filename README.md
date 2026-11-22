@@ -10,7 +10,7 @@ Built with **.NET 11 Web API + MVC**, **Angular 19**, and **PostgreSQL (Neon)**,
 
 | Resource | URL |
 |:---|:---|
-| **Frontend (Netlify)** | `https://cycleboard-app.netlify.app` |
+| **Frontend (Netlify)** | `https://meek-bublanina-7bc461.netlify.app` |
 | **Backend API + Status Page (Azure)** | `https://cycleboard-api.azurewebsites.net` |
 | **Interactive Swagger Docs** | `https://cycleboard-api.azurewebsites.net/swagger` |
 
@@ -142,7 +142,7 @@ dotnet test
 
 # 3. Start API (auto-runs SQL schema init + demo data seeder)
 dotnet run --project src/CycleBoard.WebApi
-# → http://localhost:5000  |  Swagger: http://localhost:5000/swagger
+# → http://localhost:5007  |  Swagger: http://localhost:5007/swagger
 ```
 
 ---
@@ -195,7 +195,7 @@ Create a serverless PostgreSQL project at [neon.tech](https://neon.tech/). The b
 2. Set Application Settings:
    - `ConnectionStrings__DefaultConnection` — your Neon connection string
    - `Jwt__Secret` — 32+ char random secret
-   - `Cors__AllowedOrigins` — your Netlify URL (`https://cycleboard-app.netlify.app`)
+   - `Cors__AllowedOrigins` — your Netlify URL (`https://meek-bublanina-7bc461.netlify.app`)
 3. Deploy via GitHub Actions or `az webapp deploy`.
 
 ### Frontend (Netlify)
