@@ -6,8 +6,8 @@
 
 ## Live Demo & Credentials
 
-* **Frontend (Netlify):** `https://cycleboard-app.netlify.app` *(update with your deployed Netlify URL)*
-* **Backend API & Status Page (Azure App Service):** `https://cycleboard-api.azurewebsites.net` *(update with your deployed Azure URL)*
+* **Frontend (Netlify):** `https://meek-bublanina-7bc461.netlify.app`
+* **Backend API & Status Page (Azure App Service):** `https://cycleboard-api.azurewebsites.net`
 * **Interactive API Documentation (Swagger):** `https://cycleboard-api.azurewebsites.net/swagger`
 
 ### Seeded Demo Credentials
@@ -132,7 +132,7 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
    ```bash
    dotnet run --project src/CycleBoard.WebApi
    ```
-   The API will listen on `https://localhost:7001` (or `http://localhost:5000`).
+   The API will listen on `https://localhost:7081` (or `http://localhost:5007`).
 
 ### 2. Frontend Setup (`/frontend`)
 1. Open a new terminal and navigate to the frontend directory:
@@ -143,7 +143,7 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
    ```bash
    npm install
    ```
-3. Verify `src/environments/environment.ts` points to your local backend API URL (`http://localhost:5000/api`).
+3. Verify `src/environments/environment.ts` points to your local backend API URL (`http://localhost:5007/api`).
 4. Start the Angular development server:
    ```bash
    ng serve
@@ -156,4 +156,4 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
 
 * **Database (Neon):** Serverless PostgreSQL instance with connection pooling enabled and `SSL Mode=Require`.
 * **Backend (Azure App Service):** Deployed as a .NET Web App with `ConnectionStrings__DefaultConnection`, `Jwt__Secret`, and `Cors__AllowedOrigins` configured in Azure Application Settings.
-* **Frontend (Netlify):** Built via `npm run build` publishing `dist/cycleboard-frontend/browser` with SPA fallback routing (`/* -> /index.html 200`) configured in `frontend/netlify.toml`.
+* **Frontend (Netlify):** Built via `npm run build` publishing `dist/cycleboard/browser` with SPA fallback routing (`/* -> /index.html 200`) configured in `frontend/netlify.toml`.
