@@ -1,0 +1,11 @@
+@CycleBoard.WebApi_HostAddress = http://localhost:5007
+
+GET {{CycleBoard.WebApi_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{CycleBoard.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

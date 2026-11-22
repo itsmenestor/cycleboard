@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Playwright artifacts
+.playwright-mcp/
+
+# .NET
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Secrets (never commit real secrets)
+appsettings.Production.json

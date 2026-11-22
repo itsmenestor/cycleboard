@@ -1,0 +1,64 @@
+@{
+    ViewData["Title"] = "CycleBoard API — Status";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CycleBoard API — Status</title>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --secondary: #10B981;
+            --neutral: #1F2937;
+            --bg: #F9FAFB;
+            --border: #E5E7EB;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--neutral); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 48px; max-width: 540px; width: 90%; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+        .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; }
+        .logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; }
+        .logo-text { font-size: 22px; font-weight: 700; color: var(--neutral); }
+        h1 { font-size: 13px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 24px; }
+        .status-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .status-row:last-of-type { border-bottom: none; }
+        .status-label { font-size: 14px; color: var(--neutral); }
+        .badge { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .badge-green { background: #D1FAE5; color: #065F46; }
+        .badge-red { background: #FEE2E2; color: #991B1B; }
+        .badge-blue { background: #DBEAFE; color: #1E40AF; }
+        .actions { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-secondary { background: #fff; color: var(--neutral); border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <div class="logo-icon">C</div>
+            <span class="logo-text">Cycleboard</span>
+        </div>
+        <h1>API Health Status</h1>
+        <div class="status-row">
+            <span class="status-label">API Server</span>
+            <span class="badge badge-green">Operational</span>
+        </div>
+        <div class="status-row">
+            <span class="status-label">PostgreSQL (Neon)</span>
+            <span class="badge @(ViewBag.DbStatus == "Connected" ? "badge-green" : "badge-red")">@ViewBag.DbStatus</span>
+        </div>
+        <div class="status-row">
+            <span class="status-label">Environment</span>
+            <span class="badge badge-blue">@(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production")</span>
+        </div>
+        <div class="actions">
+            <a href="/swagger" class="btn btn-primary">API Docs (Swagger)</a>
+            <a href="/api/pitches/public" class="btn btn-secondary">Public Pitches</a>
+        </div>
+    </div>
+</body>
+</html>
