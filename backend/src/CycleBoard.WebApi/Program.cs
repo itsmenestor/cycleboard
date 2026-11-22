@@ -11,10 +11,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Core MVC + API ─────────────────────────────────────────────────────────────
-builder.Services.AddControllersWithViews()
-    .AddJsonOptions(o =>
-        o.JsonSerializerOptions.Converters.Add(
-            new System.Text.Json.Serialization.JsonStringEnumConverter()));
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 
 // ── Swagger ─────────────────────────────────────────────────────────────────────
