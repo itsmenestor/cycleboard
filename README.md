@@ -169,8 +169,8 @@ npm run build
 
 | Layer | Tests | Covers |
 |:---|:---|:---|
-| `CycleBoard.Domain.Tests` | 21 | Entity invariants, state machine, User validation |
-| `CycleBoard.Application.Tests` | 12 | Service logic, ownership enforcement, NSubstitute mocks |
+| `CycleBoard.Domain.Tests` | 28 | Entity invariants, state machine, User validation |
+| `CycleBoard.Application.Tests` | 13 | Service logic, ownership enforcement, NSubstitute mocks |
 | `CycleBoard.Infrastructure.Tests` | 6 | BCrypt hashing, JWT generation + claim validation |
 | `CycleBoard.WebApi.Tests` | 9 | Controller HTTP status codes, ClaimsPrincipal integration |
 | **Total** | **56** | **All passing** |
