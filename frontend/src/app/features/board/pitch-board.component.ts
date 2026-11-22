@@ -41,10 +41,10 @@ type ModalMode = 'create' | 'edit';
               <div class="col-header">
                 <span class="col-dot" [style.background]="col.color"></span>
                 <h2>{{ col.label }}</h2>
-                <span class="col-count">{{ columnPitches(col.status).length }}</span>
+                <span class="col-count">{{ pitchesByStatus()[col.status].length }}</span>
               </div>
               <div class="col-cards">
-                @for (pitch of columnPitches(col.status); track pitch.id) {
+                @for (pitch of pitchesByStatus()[col.status]; track pitch.id) {
                   <div class="pitch-card" [class.shipped]="pitch.status === 3">
                     <div class="card-top">
                       <span class="appetite-tag" [class.big]="pitch.appetiteWeeks === 6">
@@ -445,6 +445,14 @@ export class PitchBoardComponent implements OnInit {
   readonly loading = signal(true);
   readonly pitches = signal<PitchDto[]>([]);
 
+  readonly pitchesByStatus = computed(() => {
+    const map: Record<number, PitchDto[]> = { 0: [], 1: [], 2: [], 3: [] };
+    for (const p of this.pitches()) {
+      map[p.status as number]?.push(p);
+    }
+    return map;
+  });
+
   readonly showModal = signal(false);
   readonly modalMode = signal<ModalMode>('create');
   readonly modalError = signal('');
@@ -484,10 +492,6 @@ export class PitchBoardComponent implements OnInit {
       next: (data) => { this.pitches.set(data); this.loading.set(false); },
       error: () => { this.toast.show('Failed to load pitches.', 'error'); this.loading.set(false); }
     });
-  }
-
-  columnPitches(status: PitchStatus): PitchDto[] {
-    return this.pitches().filter(p => p.status === status);
   }
 
   statusLabel(status: PitchStatus): string {
