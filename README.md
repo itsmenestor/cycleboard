@@ -1,6 +1,6 @@
-# Cycleboard — Shape Up Pitch Tracker
+# Hora — Shape Up Pitch Tracker
 
-**Cycleboard** is a full-stack product delivery and pitch-tracking application built on Basecamp's *Shape Up* methodology. Teams pitch ideas with a defined appetite (2-week Small Batch or 6-week Big Batch), advance pitches through a strict lifecycle (`Draft → Shaped → Betted → Shipped`), and showcase public wins on a community board.
+**Hora** is a full-stack product delivery and pitch-tracking application built on Basecamp's *Shape Up* methodology. Teams pitch ideas with a defined appetite (2-week Small Batch or 6-week Big Batch), advance pitches through a strict lifecycle (`Draft → Shaped → Betted → Shipped`), and showcase public wins on a community board.
 
 Built with **.NET 11 Web API + MVC**, **Angular 19**, and **PostgreSQL (Neon)**, the system enforces **Clean Architecture**, **TDD** (56 passing tests across 4 layers), and **raw Npgsql** data access — no ORMs, no MediatR, no AutoMapper.
 
@@ -18,8 +18,8 @@ Built with **.NET 11 Web API + MVC**, **Angular 19**, and **PostgreSQL (Neon)**,
 
 | Account | Email | Password |
 |:---|:---|:---|
-| Product Engineering Lead | `demo@cycleboard.dev` | `DemoPass123!` |
-| Engineering Lead | `sam@cycleboard.dev` | `DemoPass123!` |
+| Product Engineering Lead | `demo@hora.dev` | `DemoPass123!` |
+| Engineering Lead | `sam@hora.dev` | `DemoPass123!` |
 
 > Click **⚡ Fill Demo Credentials** on the login screen to auto-fill.
 
@@ -31,26 +31,26 @@ Strict inward-pointing dependency rule — outer rings know nothing about inner 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      CycleBoard.WebApi                       │
+│                      Hora.WebApi                       │
 │  ASP.NET Controllers · MVC Status Page · JWT Auth · Swagger  │
 └──────────────────────────────┬──────────────────────────────┘
                                │ depends on
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   CycleBoard.Infrastructure                   │
+│                   Hora.Infrastructure                   │
 │  Raw Npgsql Repos · SQL Schema Init · DbSeeder · BCrypt JWT   │
 └──────────────────────────────┬──────────────────────────────┘
                                │ implements interfaces from
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    CycleBoard.Application                     │
+│                    Hora.Application                     │
 │  PitchService · AuthService · DTOs                            │
 │  Zero dependency on Npgsql or ASP.NET                         │
 └──────────────────────────────┬──────────────────────────────┘
                                │ depends on
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      CycleBoard.Domain                        │
+│                      Hora.Domain                        │
 │  User · Pitch entities · PitchStatus state machine            │
 │  Domain invariants & exceptions · Zero external NuGet deps    │
 └─────────────────────────────────────────────────────────────┘
@@ -121,15 +121,15 @@ All errors return RFC 7807 `ProblemDetails` JSON.
 cd backend
 
 # 1. Configure connection string + JWT secret
-# Edit src/CycleBoard.WebApi/appsettings.Development.json:
+# Edit src/Hora.WebApi/appsettings.Development.json:
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=cycleboard;Username=postgres;Password=postgres"
+    "DefaultConnection": "Host=localhost;Database=hora;Username=postgres;Password=postgres"
   },
   "Jwt": {
-    "Secret": "SuperSecretKeyForCycleboardDevelopmentMustBe32CharsLong!",
-    "Issuer": "CycleboardApi",
-    "Audience": "CycleboardClient",
+    "Secret": "SuperSecretKeyForHoraDevelopmentMustBe32CharsLong!",
+    "Issuer": "HoraApi",
+    "Audience": "HoraClient",
     "ExpirationMinutes": 120
   },
   "Cors": {
@@ -141,7 +141,7 @@ cd backend
 dotnet test
 
 # 3. Start API (auto-runs SQL schema init + demo data seeder)
-dotnet run --project src/CycleBoard.WebApi
+dotnet run --project src/Hora.WebApi
 # → http://localhost:5007  |  Swagger: http://localhost:5007/swagger
 ```
 
@@ -159,7 +159,7 @@ npm install
 ng serve
 # → http://localhost:4200
 
-# 3. Production build (output: dist/cycleboard/browser)
+# 3. Production build (output: dist/hora/browser)
 npm run build
 ```
 
@@ -169,10 +169,10 @@ npm run build
 
 | Layer | Tests | Covers |
 |:---|:---|:---|
-| `CycleBoard.Domain.Tests` | 28 | Entity invariants, state machine, User validation |
-| `CycleBoard.Application.Tests` | 13 | Service logic, ownership enforcement, NSubstitute mocks |
-| `CycleBoard.Infrastructure.Tests` | 6 | BCrypt hashing, JWT generation + claim validation |
-| `CycleBoard.WebApi.Tests` | 9 | Controller HTTP status codes, ClaimsPrincipal integration |
+| `Hora.Domain.Tests` | 28 | Entity invariants, state machine, User validation |
+| `Hora.Application.Tests` | 13 | Service logic, ownership enforcement, NSubstitute mocks |
+| `Hora.Infrastructure.Tests` | 6 | BCrypt hashing, JWT generation + claim validation |
+| `Hora.WebApi.Tests` | 9 | Controller HTTP status codes, ClaimsPrincipal integration |
 | **Total** | **56** | **All passing** |
 
 Run all tests:
@@ -210,7 +210,7 @@ The repo includes `frontend/netlify.toml` with SPA redirect rules:
 
 [build]
   command = "npm run build"
-  publish = "dist/cycleboard/browser"
+  publish = "dist/hora/browser"
 ```
 
 Set environment variable `VITE_API_URL` or update `environment.prod.ts` to point at your Azure App Service URL before deploying.
@@ -220,18 +220,18 @@ Set environment variable `VITE_API_URL` or update `environment.prod.ts` to point
 ## Project Structure
 
 ```
-cycleboard/
+hora/
 ├── backend/
 │   ├── src/
-│   │   ├── CycleBoard.Domain/          # Entities, state machine, exceptions
-│   │   ├── CycleBoard.Application/     # Services, DTOs, interfaces
-│   │   ├── CycleBoard.Infrastructure/  # Npgsql repos, JWT, BCrypt, seeder
-│   │   └── CycleBoard.WebApi/          # Controllers, MVC status page, Program.cs
+│   │   ├── Hora.Domain/          # Entities, state machine, exceptions
+│   │   ├── Hora.Application/     # Services, DTOs, interfaces
+│   │   ├── Hora.Infrastructure/  # Npgsql repos, JWT, BCrypt, seeder
+│   │   └── Hora.WebApi/          # Controllers, MVC status page, Program.cs
 │   └── tests/
-│       ├── CycleBoard.Domain.Tests/
-│       ├── CycleBoard.Application.Tests/
-│       ├── CycleBoard.Infrastructure.Tests/
-│       └── CycleBoard.WebApi.Tests/
+│       ├── Hora.Domain.Tests/
+│       ├── Hora.Application.Tests/
+│       ├── Hora.Infrastructure.Tests/
+│       └── Hora.WebApi.Tests/
 └── frontend/
     └── src/app/
         ├── core/                       # Services, interceptors, guards, models

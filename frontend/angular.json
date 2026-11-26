@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "cycleboard-frontend": {
+    "hora-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -17,7 +17,7 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "outputPath": "dist/cycleboard",
+            "outputPath": "dist/hora",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {

@@ -111,7 +111,7 @@ export class RegisterComponent {
     const { email, fullName, password } = this.form.value;
     this.authService.register({ email: email!, fullName: fullName!, password: password! }).subscribe({
       next: () => {
-        this.toast.show('Account created! Welcome to Cycleboard.', 'success');
+        this.toast.show('Account created! Welcome to Hora.', 'success');
         this.router.navigate(['/board']);
       },
       error: (err: { error?: { detail?: string } }) => {

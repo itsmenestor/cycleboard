@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Hora.Application/Hora.Application.csproj" />
+    <Project Path="src/Hora.Domain/Hora.Domain.csproj" />
+    <Project Path="src/Hora.Infrastructure/Hora.Infrastructure.csproj" />
+    <Project Path="src/Hora.WebApi/Hora.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Hora.Application.Tests/Hora.Application.Tests.csproj" />
+    <Project Path="tests/Hora.Domain.Tests/Hora.Domain.Tests.csproj" />
+    <Project Path="tests/Hora.Infrastructure.Tests/Hora.Infrastructure.Tests.csproj" />
+    <Project Path="tests/Hora.WebApi.Tests/Hora.WebApi.Tests.csproj" />
+  </Folder>
+</Solution>

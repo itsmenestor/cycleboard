@@ -1,6 +1,6 @@
-# Cycleboard — Minimalist Shape Up / Cycle Pitch Tracker
+# Hora — Minimalist Shape Up / Cycle Pitch Tracker
 
-**Cycleboard** is a full-stack product delivery and pitch-tracking web application inspired by Basecamp's *Shape Up* methodology. Built with **.NET Web API / MVC**, **Angular**, and **Neon (PostgreSQL)**, the application strictly adheres to **Clean Architecture**, **Test-Driven Development (TDD)**, and explicit **raw ADO.NET (`Npgsql`)** data access without ORMs or mediator abstractions.
+**Hora** is a full-stack product delivery and pitch-tracking web application inspired by Basecamp's *Shape Up* methodology. Built with **.NET Web API / MVC**, **Angular**, and **Neon (PostgreSQL)**, the application strictly adheres to **Clean Architecture**, **Test-Driven Development (TDD)**, and explicit **raw ADO.NET (`Npgsql`)** data access without ORMs or mediator abstractions.
 
 ---
 
@@ -15,8 +15,8 @@ The backend automatically seeds the PostgreSQL database on startup if no users e
 
 | Role | Email | Password |
 | :--- | :--- | :--- |
-| **Product Engineering Lead (Primary)** | `demo@cycleboard.dev` | `DemoPass123!` |
-| **Engineering Lead (Secondary)** | `sam@cycleboard.dev` | `DemoPass123!` |
+| **Product Engineering Lead (Primary)** | `demo@hora.dev` | `DemoPass123!` |
+| **Engineering Lead (Secondary)** | `sam@hora.dev` | `DemoPass123!` |
 
 *(You can also click the **"Fill Demo Credentials"** button on the login screen or register a new account.)*
 
@@ -28,7 +28,7 @@ The backend automatically seeds the PostgreSQL database on startup if no users e
 > *"As a product engineering lead, I want to pitch project ideas with a defined appetite (2-week Small Batch or 6-week Big Batch), track their lifecycle status from 'Draft' through 'Shaped' and 'Betted' to 'Shipped', and showcase public shipped wins so my team can maintain focused, time-boxed product delivery without endless backlog bloat."*
 
 ### Engineering Thought Process & Design Decisions
-1. **Why Shape Up ("Cycleboard")?**
+1. **Why Shape Up ("Hora")?**
    Traditional to-do apps often devolve into flat CRUD forms with no meaningful domain rules. Modeling a Shape Up pitch lifecycle introduces real **state-machine invariants** (e.g., a pitch cannot jump directly from `Draft` to `Shipped`, appetites are strictly constrained to `2` or `6` weeks, and `Draft` pitches cannot be published publicly) that naturally justify a dedicated, framework-independent Business Logic Layer.
 2. **Why Raw `Npgsql` Instead of EF Core or Dapper?**
    Per the assessment constraints, no ORMs or mediator libraries were used. Writing repositories directly against `NpgsqlConnection`, `NpgsqlCommand`, and `NpgsqlDataReader` provides complete control over SQL execution, connection pooling, and parameterized queries while keeping the `Domain` and `Application` layers completely decoupled from database mechanics.
@@ -43,31 +43,31 @@ The backend automatically seeds the PostgreSQL database on startup if no users e
 
 ## Architecture Overview
 
-Cycleboard follows **Clean Architecture** with strict inward-pointing dependencies:
+Hora follows **Clean Architecture** with strict inward-pointing dependencies:
 
 ```text
 +-------------------------------------------------------------------+
-|                        CycleBoard.WebApi                          |
+|                        Hora.WebApi                          |
 |   ASP.NET Controllers, MVC Status View, JWT Auth, CORS, Swagger   |
 +---------------------------------+---------------------------------+
                                   | depends on
                                   v
 +-------------------------------------------------------------------+
-|                     CycleBoard.Infrastructure                     |
+|                     Hora.Infrastructure                     |
 |   Raw Npgsql Repositories, SQL Schema Initializer, DbSeeder,      |
 |   JWT Token Generator, Cryptographic Password Hasher              |
 +---------------------------------+---------------------------------+
                                   | implements interfaces from
                                   v
 +-------------------------------------------------------------------+
-|                      CycleBoard.Application                       |
+|                      Hora.Application                       |
 |   PitchService, AuthService, DTOs, Validators, Repository &       |
 |   Security Interfaces (Zero dependency on Npgsql or ASP.NET)      |
 +---------------------------------+---------------------------------+
                                   | depends on
                                   v
 +-------------------------------------------------------------------+
-|                        CycleBoard.Domain                          |
+|                        Hora.Domain                          |
 |   User & Pitch Entities, PitchStatus State Machine, Domain        |
 |   Invariants & Exceptions (Zero external NuGet dependencies)      |
 +-------------------------------------------------------------------+
@@ -110,16 +110,16 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
    ```bash
    cd backend
    ```
-2. Configure your Neon PostgreSQL connection string and JWT secret in `src/CycleBoard.WebApi/appsettings.Development.json` (or via environment variables):
+2. Configure your Neon PostgreSQL connection string and JWT secret in `src/Hora.WebApi/appsettings.Development.json` (or via environment variables):
    ```json
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Host=your-neon-host.neon.tech;Database=cycleboard;Username=your_user;Password=your_password;SSL Mode=Require;Trust Server Certificate=true"
+       "DefaultConnection": "Host=your-neon-host.neon.tech;Database=hora;Username=your_user;Password=your_password;SSL Mode=Require;Trust Server Certificate=true"
      },
      "Jwt": {
-       "Secret": "SuperSecretKeyForCycleboardDevelopmentMustBe32CharsLong!",
-       "Issuer": "CycleboardApi",
-       "Audience": "CycleboardClient",
+       "Secret": "SuperSecretKeyForHoraDevelopmentMustBe32CharsLong!",
+       "Issuer": "HoraApi",
+       "Audience": "HoraClient",
        "ExpirationMinutes": 120
      }
    }
@@ -130,7 +130,7 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
    ```
 4. Start the Web API (this automatically runs `SqlSchemaInitializer` and `DbSeeder` on startup):
    ```bash
-   dotnet run --project src/CycleBoard.WebApi
+   dotnet run --project src/Hora.WebApi
    ```
    The API will listen on `https://localhost:7081` (or `http://localhost:5007`).
 
@@ -156,4 +156,4 @@ Cycleboard follows **Clean Architecture** with strict inward-pointing dependenci
 
 * **Database (Neon):** Serverless PostgreSQL instance with connection pooling enabled and `SSL Mode=Require`.
 * **Backend (Azure App Service):** Deployed as a .NET Web App with `ConnectionStrings__DefaultConnection`, `Jwt__Secret`, and `Cors__AllowedOrigins` configured in Azure Application Settings.
-* **Frontend (Netlify):** Built via `npm run build` publishing `dist/cycleboard/browser` with SPA fallback routing (`/* -> /index.html 200`) configured in `frontend/netlify.toml`.
+* **Frontend (Netlify):** Built via `npm run build` publishing `dist/hora/browser` with SPA fallback routing (`/* -> /index.html 200`) configured in `frontend/netlify.toml`.

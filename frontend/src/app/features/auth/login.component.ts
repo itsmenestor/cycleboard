@@ -21,7 +21,7 @@ import { ToastService } from '../../core/services/toast.service';
             </svg>
           </div>
           <h1>Welcome back</h1>
-          <p>Sign in to your Cycleboard workspace</p>
+          <p>Sign in to your Hora workspace</p>
         </div>
 
         <button class="demo-fill-btn" type="button" (click)="fillDemo()">
